@@ -39,9 +39,13 @@ class MainActivity : ComponentActivity() {
             ExercicioLista2Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    LayoutScreen(
+                    PlayGameScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
+
+//                    GameOverScreen(
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
                 }
             }
         }
@@ -49,47 +53,49 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun LayoutScreen(modifier: Modifier = Modifier) {
+fun PlayGameScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
+            //ocupa a tela toda
         .fillMaxSize()
+            //colocar o background nesta ordem para nao alterar o resultado final
         .background(Color.Black)
 
     ){
+        //Status do jogo
+        //row favorece a orientaçao dos elementos filhos
         Row(
+                                 //Ocupa toda a largura da tela
             modifier = Modifier.fillMaxWidth(),
+            //Distribuiçao do conteudo, usando o space between para separar entre os elementos
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            //score
             Text(text = "SCORE: 0050",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                fontFamily = FontFamily.Serif,
-                textAlign = TextAlign.Start
+                fontFamily = FontFamily.Serif
             )
-            Row(
-                modifier = Modifier,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+
+            //container para o lives e as tres imagens
+            Row() {
                 Text(text = "LIVES: ",
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = Color.White,
+                    fontSize = 20.sp,
                 )
-                AndroidEnemy(
-                    color = Color.Green,
-                    modifier = Modifier.size(30.dp)
-                )
-                AndroidEnemy(
-                    color = Color.Green,
-                    modifier = Modifier.size(30.dp)
-                )
-                AndroidEnemy(
-                    color = Color.Green,
-                    modifier = Modifier.size(30.dp)
-                )
+                //Serve para repetir uma ação uma quantidade determinada de vezes.
+                repeat(3){
+                    AndroidEnemy(
+                        color = Color.Green,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
             }
 
         }
+        //Inimigos
         Row(
             modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy((-50).dp)
@@ -115,6 +121,8 @@ fun LayoutScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.size(120.dp)
             )
         }
+
+        //personagem
         Box(
             modifier = modifier
         ){
@@ -142,11 +150,20 @@ fun LayoutScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun GameOverScreen(modifier: Modifier = Modifier){
+
+}
+
+
+
+@Composable
 fun AndroidEnemy(
     color: Color,
     modifier: Modifier = Modifier
 ){
     Image(
+        //serve para desenhar um recurso que ja tem dentro do projeto
+        //R. é o id da imagem
         painter = painterResource(R.drawable.ic_launcher_foreground),
         colorFilter = ColorFilter.tint(color),
         contentDescription = "Android Enemy",
