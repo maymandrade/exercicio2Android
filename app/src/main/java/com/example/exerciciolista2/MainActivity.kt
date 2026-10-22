@@ -79,7 +79,9 @@ fun PlayGameScreen(modifier: Modifier = Modifier) {
             )
 
             //container para o lives e as tres imagens
-            Row() {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy((-10).dp)
+            ) {
                 Text(text = "LIVES: ",
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -122,28 +124,30 @@ fun PlayGameScreen(modifier: Modifier = Modifier) {
             )
         }
 
-        //personagem
-        Box(
-            modifier = modifier
-        ){
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(bottom = 100.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
+        ) {
             AndroidEnemy(
-                color = Color.Green,
+                color = Color.Blue,
                 modifier = Modifier.size(120.dp)
             )
-        }
 
-        Box(
-            modifier = modifier
-                .background(Color.Gray)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
+            Text(
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .background(color = Color.Gray)
+                    .fillMaxWidth(),
 
-        ){
-            Text(text = "PRESS START",
+                textAlign = TextAlign.Center,
+                text = "PRESS START",
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
                 color = Color.White
-
             )
         }
     }
@@ -151,10 +155,48 @@ fun PlayGameScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun GameOverScreen(modifier: Modifier = Modifier){
+    Box(
+        modifier = modifier.fillMaxSize().background(Color.Black),
+        contentAlignment = Alignment.Center
+    ){
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy((-50).dp),
+        ) {
+            AndroidEnemy(
+                color = Color.Green,
+                modifier = Modifier.size(120.dp)
+            )
+
+            AndroidEnemy(
+                color = Color.Red,
+                modifier = Modifier.size(120.dp)
+            )
+
+            AndroidEnemy(
+                color = Color.Blue,
+                modifier = Modifier.size(120.dp)
+            )
+
+            AndroidEnemy(
+                color = Color.Yellow,
+                modifier = Modifier.size(120.dp)
+            )
+
+            AndroidEnemy(
+                color = Color.Green,
+                modifier = Modifier.size(120.dp)
+            )
+        }
+        Text(
+            text = "GAME OVER",
+            color = Color.White,
+            fontSize = 60.sp,
+            fontWeight = FontWeight.W700
+        )
+    }
 
 }
-
-
 
 @Composable
 fun AndroidEnemy(
